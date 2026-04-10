@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Nordbo Queue Portal - Sign in</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body { font-family: Arial, sans-serif; background:#f4f6f8; color:#1f2937; }
+      .wrap { max-width: 520px; margin: 48px auto; background:white; border:1px solid #d1d5db; border-radius:10px; padding:24px; }
+      h1 { margin-top:0; font-size: 24px; }
+      label { display:block; font-size:14px; margin:14px 0 6px; }
+      input { width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px; }
+      button { margin-top:18px; width:100%; padding:12px; background:#1d4ed8; color:white; border:none; border-radius:6px; cursor:pointer; }
+      .muted { color:#6b7280; font-size: 13px; }
+      .demo { margin-top:18px; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:6px; padding:12px; font-size:13px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="muted">Nordbo Bostadskö</div>
+      <h1>Sign in to your housing queue account</h1>
+      <p class="muted">This is a local mock platform used for a take-home assignment.</p>
+      <form method="post" action="/login">
+        <label for="username">Email</label>
+        <input id="username" name="username" type="email" value="maxim@example.com" />
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" value="test123" />
+        <button type="submit">Log in</button>
+      </form>
+      <div class="demo">
+        <strong>Demo credentials</strong><br />
+        username: maxim@example.com<br />
+        password: test123
+      </div>
+    </div>
+  </body>
+</html>

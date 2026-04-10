@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>My queue overview | Nordbo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body { font-family: Inter, Arial, sans-serif; margin:0; background:#eef2f7; color:#1f2937; }
+      .topbar { background:#11315b; color:white; padding:12px 24px; display:flex; justify-content:space-between; align-items:center; }
+      .brand { font-weight:700; letter-spacing:.02em; }
+      .layout { max-width:1000px; margin:24px auto; display:grid; grid-template-columns: 240px 1fr; gap:20px; }
+      .panel, .card { background:white; border:1px solid #dbe4ef; border-radius:10px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+      .panel { padding:16px; }
+      .panel h3 { margin-top:0; font-size:16px; }
+      .main { display:flex; flex-direction:column; gap:16px; }
+      .hero { padding:18px 20px; }
+      .hero .muted { color:#6b7280; font-size:13px; }
+      .queue-list { display:grid; gap:14px; }
+      .queue-card { padding:16px 18px; position:relative; }
+      .queue-head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
+      .queue-title { font-size:18px; font-weight:700; }
+      .pill { font-size:12px; border-radius:999px; padding:5px 10px; white-space:nowrap; }
+      .pill.active { background:#dcfce7; color:#166534; }
+      .pill.inactive { background:#fee2e2; color:#991b1b; }
+      .meta { display:grid; grid-template-columns: repeat(2, minmax(180px, 1fr)); gap:10px 16px; margin-top:14px; }
+      .meta .item { background:#f8fafc; border-radius:8px; padding:10px 12px; border:1px solid #e5edf5; }
+      .label { font-size:12px; color:#64748b; margin-bottom:4px; text-transform:uppercase; letter-spacing:.04em; }
+      .value { font-size:14px; }
+      .hint { font-size:12px; color:#6b7280; margin-top:10px; }
+      .small-note { font-size:12px; color:#6b7280; margin-top:4px; }
+      .hidden-ish { color:#334155; font-size:13px; }
+      .legacy { font-size:11px; color:#94a3b8; }
+      .divider { border-top:1px dashed #e2e8f0; margin:12px 0 0; padding-top:12px; }
+      @media (max-width: 800px) { .layout { grid-template-columns: 1fr; padding:0 16px; } }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="brand">Nordbo</div>
+      <div>Signed in as <strong>Maxim Eyd</strong></div>
+    </div>
+
+    <div class="layout">
+      <aside class="panel">
+        <h3>My pages</h3>
+        <div>Queue overview</div>
+        <div class="small-note">Messages (0)</div>
+        <div class="small-note">Profile</div>
+        <div class="small-note">Settings</div>
+      </aside>
+
+      <main class="main">
+        <section class="card hero">
+          <div class="muted">Account holder</div>
+          <h1 style="margin:6px 0 8px; font-size:28px;">Maxim Eyd</h1>
+          <div class="hidden-ish">You currently participate in 3 queue categories.</div>
+          <div class="legacy">Last sync from internal membership system: 2026-04-02 08:14 CET</div>
+        </section>
+
+        <section class="queue-list">
+          <article class="card queue-card" data-queue-key="regular_queue">
+            <div class="queue-head">
+              <div>
+                <div class="queue-title">Regular</div>
+                <div class="small-note">Standard housing queue</div>
+              </div>
+              <div class="pill active">ACTIVE</div>
+            </div>
+            <div class="meta">
+              <div class="item">
+                <div class="label">Registration date</div>
+                <div class="value">2021-08-14</div>
+              </div>
+              <div class="item">
+                <div class="label">Last updated</div>
+                <div class="value">2026-03-28</div>
+              </div>
+              <div class="item">
+                <div class="label">Update before</div>
+                <div class="value">2026-04-28</div>
+              </div>
+              <div class="item">
+                <div class="label">Status</div>
+                <div class="value">Active</div>
+              </div>
+            </div>
+            <div class="hint">Keep your queue days by updating before the deadline.</div>
+          </article>
+
+          <article class="card queue-card extra-state" data-queue-key="parking-slot">
+            <div class="queue-head">
+              <div>
+                <div class="queue-title">Parking</div>
+                <div class="small-note">Vehicle & garage related offers</div>
+              </div>
+              <div class="pill active">Active</div>
+            </div>
+            <div class="meta">
+              <div class="item">
+                <div class="label">Reg. date</div>
+                <div class="value">2022-02-01</div>
+              </div>
+              <div class="item">
+                <div class="label">Updated</div>
+                <div class="value">2026-04-05</div>
+              </div>
+              <div class="item">
+                <div class="label">Please refresh before</div>
+                <div class="value">2026-05-05</div>
+              </div>
+              <div class="item">
+                <div class="label">Status</div>
+                <div class="value">ACTIVE </div>
+              </div>
+            </div>
+            <div class="small-note">Queue code: PK-991</div>
+          </article>
+
+          <article class="card queue-card" data-queue-key="student-housing">
+            <div class="queue-head">
+              <div>
+                <div class="queue-title">Student</div>
+                <div class="small-note">Student housing queue</div>
+              </div>
+              <div class="pill inactive">Inactive</div>
+            </div>
+            <div class="meta">
+              <div class="item">
+                <div class="label">Registration date</div>
+                <div class="value">2023-09-15</div>
+              </div>
+              <div class="item">
+                <div class="label">Last updated</div>
+                <div class="value">2025-10-01</div>
+              </div>
+              <div class="item">
+                <div class="label">Update before</div>
+                <div class="value">2025-11-01</div>
+              </div>
+              <div class="item">
+                <div class="label">Status</div>
+                <div class="value">Inactive</div>
+              </div>
+            </div>
+            <div class="divider">
+              <div class="label">Inactive reason</div>
+              <div class="value">Membership expired - missing semester registration</div>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
