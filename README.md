@@ -130,8 +130,5 @@ We will mainly evaluate:
 - `src/database.py`
 
 ## Bonus ideas (optional)
-
-- add one or two tests
-- add lightweight logging
 - normalize status values consistently (`active` / `inactive`)
 - show the updated Maxim records after the script finishes

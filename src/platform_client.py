@@ -9,6 +9,7 @@ from selenium.webdriver.chrome.options import Options
 
 @dataclass
 class PlatformSession:
+    session: requests.Session
     base_url: str
 
     def login(self, username: str, password: str) -> None:
@@ -31,7 +32,7 @@ class PlatformSession:
         tooling the team uses in production.
         """
         options = Options()
-        options.add_argument("--no-sandbox")
+        options.add_argument("-no-sandbox")
         driver = webdriver.Chrome(options=options)
         try:
             driver.get(f"{self.base_url}/account")
@@ -41,4 +42,4 @@ class PlatformSession:
 
 
 def build_session(base_url: str) -> PlatformSession:
-    return PlatformSession(base_url=base_url.rstrip("/"))
+    return PlatformSession(session=requests.Session(), base_url=base_url.rstrip("/"))
