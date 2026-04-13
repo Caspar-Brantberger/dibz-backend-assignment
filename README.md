@@ -105,6 +105,9 @@ cd src
 python main.py
 ```
 
+**Note:** When you first run `main.py`, it will fail with errors. This is expected fixing these errors is part of the assignment.
+
+
 ## Credentials
 
 Use these credentials for the mock platform:
