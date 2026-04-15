@@ -7,6 +7,8 @@ from database import get_connection, get_user_id, update_last_login, update_queu
 from parser import parse_queue_spots
 from platform_client import build_session
 
+
+
 TARGET_USER = "Maxim Eyd"
 
 
@@ -20,6 +22,12 @@ def main() -> None:
     platform.login(username=username, password=password)
     html = platform.fetch_account_html()
     queue_spots = parse_queue_spots(html)
+
+    print("Base URL:", base_url)
+    print("HTML PREVIEW")
+    print(html[:1000])    
+    print("Parsed Queue Spots:", queue_spots)
+    print("Number of Queue Spots Parsed:", len(queue_spots))
 
     if not queue_spots:
         raise RuntimeError("No queue spots were parsed from the page.")
