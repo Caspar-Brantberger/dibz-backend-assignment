@@ -14,7 +14,12 @@ class PlatformSession:
 
     def login(self, username: str, password: str) -> None:
         """Login to the platform using the given credentials."""
-        raise NotImplementedError
+        login_url = f"{self.base_url}/login"
+
+        response =self.session.post(login_url, data={"username": username, "password": password})
+
+        if response.status_code != 200:
+            raise RuntimeError(f"Login failed with status code {response.status_code}")
 
     def fetch_account_html(self) -> str:
         """Return the account HTML after login.
@@ -23,7 +28,13 @@ class PlatformSession:
         - Use the authenticated requests session to GET /account.
         - Return the response text.
         """
-        raise NotImplementedError
+        account_url = f"{self.base_url}/account"
+        response = self.session.get(account_url)
+
+        if response.status_code != 200:
+            raise RuntimeError(f"Failed to fetch account page with status code {response.status_code}")
+
+        return response.text
 
     def open_account_in_browser(self) -> None:
         """Optional helper to inspect the page manually with Selenium.
