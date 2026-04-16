@@ -135,3 +135,18 @@ We will mainly evaluate:
 ## Bonus ideas (optional)
 - normalize status values consistently (`active` / `inactive`)
 - show the updated Maxim records after the script finishes
+
+## Running tests
+
+From the project root:
+
+```bash
+python -m pytest
+
+## Notes about my solution
+
+- Parses queue spot data for Maxim Eyd from the account page
+- Normalizes label variations such as `Reg. date`, `Updated`, and `Please refresh before`
+- Updates only Maxim Eyd's queue spots in SQLite
+- Updates `users.last_login` when the sync runs
+- Includes a few parser tests
