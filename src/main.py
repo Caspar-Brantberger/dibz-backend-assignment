@@ -1,12 +1,12 @@
 from __future__ import annotations
 
+
 import os
 from datetime import datetime, UTC
 
 from database import get_connection, get_user_id, update_last_login, update_queue_spot
 from parser import parse_queue_spots
 from platform_client import build_session
-
 
 
 TARGET_USER = "Maxim Eyd"
@@ -16,18 +16,12 @@ def main() -> None:
     base_url = os.getenv("PLATFORM_BASE_URL", "http://127.0.0.1:8000")
     username = os.getenv("PLATFORM_USERNAME", "maxim@example.com")
     password = os.getenv("PLATFORM_PASSWORD", "test123")
-    db_path = os.getenv("DB_PATH", "./data/app.db")
+    db_path = os.getenv("DB_PATH", "../data/app.db")
 
     platform = build_session(base_url)
     platform.login(username=username, password=password)
     html = platform.fetch_account_html()
     queue_spots = parse_queue_spots(html)
-
-    print("Base URL:", base_url)
-    print("HTML PREVIEW")
-    print(html[:1000])    
-    print("Parsed Queue Spots:", queue_spots)
-    print("Number of Queue Spots Parsed:", len(queue_spots))
 
     if not queue_spots:
         raise RuntimeError("No queue spots were parsed from the page.")
@@ -51,8 +45,22 @@ def main() -> None:
                 status=spot.status,
                 inactive_reason=spot.inactive_reason,
             )
+            updated_rows= connection.execute(
+            """
+            SELECT queue_type, registration_date, last_updated, update_before, status, inactive_reason
+            FROM queue_spots
+            WHERE user_id = ?
+            """,
+            (user_id,),
+        ).fetchall()
+        
 
     print(f"Updated {len(queue_spots)} queue spots for {TARGET_USER}.")
+    print("\nUpdated records:")
+
+    for row in updated_rows:
+        print(dict(row))
+
 
 
 if __name__ == "__main__":

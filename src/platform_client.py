@@ -16,7 +16,7 @@ class PlatformSession:
         """Login to the platform using the given credentials."""
         login_url = f"{self.base_url}/login"
 
-        response =self.session.post(login_url, data={"username": username, "password": password})
+        response = self.session.post(login_url, data={"username": username, "password": password})
 
         if response.status_code != 200:
             raise RuntimeError(f"Login failed with status code {response.status_code}")

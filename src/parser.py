@@ -48,23 +48,22 @@ def parse_queue_spots(html: str) -> list[ParsedQueueSpot]:
     - Returning three ParsedQueueSpot items is enough.
     """
 
-    # TODO:
-    # 1. Find the queue cards.
-    # 2. Read the title and field values from each card.
-    # 3. Handle small label differences, e.g. "Reg. date" vs "Registration date".
-    # 4. Include inactive_reason only when present.
     soup = BeautifulSoup(html, "html.parser")
 
     queue_spots = []
-    cards = soup.find_all("div", class_="queue-card")
+    cards = soup.find_all("article", class_="queue-card")
 
     for card in cards:
-        queue_type = card.find("h2").text.strip()
+        title_tag = card.find("div", class_="queue-title")
+        if title_tag is None:
+            continue
+
+        queue_type = title_tag.text.strip()
         fields = {}
 
-        for field in card.find_all("div", class_="field"):
-            label_tag = field.find("span", class_="label")
-            value_tag = field.find("span", class_="value")
+        for field in card.find_all("div", class_="item"):
+            label_tag = field.find("div", class_="label")
+            value_tag = field.find("div", class_="value")
 
             if not label_tag or not value_tag:
                 continue
@@ -72,20 +71,26 @@ def parse_queue_spots(html: str) -> list[ParsedQueueSpot]:
             normalized_label = normalize_label(label_tag.text.strip())
             fields[normalized_label] = value_tag.text.strip()
 
-        registration_date = fields.get("registration_date", "")
-        last_updated = fields.get("last_updated", "")
-        update_before = fields.get("update_before", "")
-        status = normalize_status(fields.get("status", ""))
-        inactive_reason = fields.get("inactive_reason")
+        inactive_label = card.find(
+            "div",
+            class_="label",
+            string=lambda s: s and s.strip().lower() == "inactive reason",
+
+        )
+        if inactive_label:
+            inactive_value_tag = inactive_label.find_next("div", class_="value")
+            if inactive_value_tag:
+                fields["inactive_reason"] = inactive_value_tag.text.strip()
+
 
         queue_spots.append(
             ParsedQueueSpot(
                 queue_type=queue_type,
-                registration_date=registration_date,
-                last_updated=last_updated,
-                update_before=update_before,
-                status=status,
-                inactive_reason=inactive_reason,
+                registration_date=fields.get("registration_date", ""),
+                last_updated=fields.get("last_updated", ""),
+                update_before=fields.get("update_before", ""),
+                status=normalize_status(fields.get("status", "")),
+                inactive_reason=fields.get("inactive_reason"),
             )
         )
 
